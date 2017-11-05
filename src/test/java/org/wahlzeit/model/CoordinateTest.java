@@ -21,6 +21,7 @@
 package org.wahlzeit.model;
 
 import org.junit.Test;
+import org.junit.Before;
 import static org.junit.Assert.assertEquals;
 
 /*
@@ -33,33 +34,41 @@ import static org.junit.Assert.assertEquals;
 
 public class CoordinateTest {
 	
+	private Coordinate a;
+	private Coordinate b;
+	private Coordinate c;
+	private Coordinate d;
+	private Coordinate e;
+	
+	@Before
+	public void setUp(){
+		a = new Coordinate(1.0d,1.0d,1.0d);
+		b = new Coordinate(1.0d,1.0d,2.0d);
+		c = new Coordinate(1.0d,1.0d,4.0d);
+		d = new Coordinate(1.0d,1.0d,1.0d);
+		e = null;
+	}
+		
 	@Test
 	public void testGetDistance(){
-		Coordinate a = new Coordinate(1,1,1);
-		Coordinate b = new Coordinate(1,1,2);
-
-		assertEquals(1.0, a.getDistance(b),0.0);		
+		assertEquals(0.0d, a.getDistance(a),0.00000001d);			
+		assertEquals(1.0d, a.getDistance(b),0.00000001d);
+		assertEquals(3.0d, a.getDistance(c),0.00000001d);	
 	}
 	
 	@Test
 	public void testIsEqual(){
-		Coordinate a = new Coordinate(1,2,3);
-		Coordinate b = new Coordinate(1,2,3);
-		Coordinate c = new Coordinate(1,2,4);
-		
-		assertEquals(true, a.isEqual(b));
-		assertEquals(false, a.isEqual(c));		
+		assertEquals(false, a.isEqual(b));
+		assertEquals(false, a.isEqual(c));
+		assertEquals(true, a.isEqual(d));
+		assertEquals(true, a.isEqual(a));		
 	}
 	
 	@Test
-	public void testEquals(){
-		Coordinate a = new Coordinate(1,2,3);
-		Coordinate b = new Coordinate(1,2,3);
-		Coordinate c = new Coordinate(1,2,4);
-		Coordinate d = null;
-		
-		assertEquals(true, a.equals(b));
+	public void testEquals(){		
+		assertEquals(false, a.equals(b));
 		assertEquals(false, a.equals(c));
-		assertEquals(false, a.equals(d));
+		assertEquals(true, a.equals(d));
+		assertEquals(false, a.equals(e));	
 	}
 }

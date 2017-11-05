@@ -31,6 +31,7 @@ package org.wahlzeit.model;
 public class Coordinate {
 
 	private double x,y,z;
+	private static final double epsilon = 0.00000001d;
 	
 	public Coordinate(double x, double y, double z){
 		this.x = x;
@@ -90,10 +91,21 @@ public class Coordinate {
 	}
 	
 	/**
-	 * Vergleicht zwei Coordinaten ob diese gleich sind
+	 * Vergleicht zwei Double Werte ob diese identisch sind
+	 */
+	public boolean isDoubleEqual(double a, double b)
+	{
+		if(Math.abs(a-b)< epsilon){
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Vergleicht zwei Coordinaten ob diese identisch sind
 	 */
 	public boolean isEqual(Coordinate coordinate){
-		if(this.x == coordinate.getX() && this.y == coordinate.getY() && this.z == coordinate.getZ()){
+		if(isDoubleEqual(this.x,coordinate.getX()) && isDoubleEqual(this.y,coordinate.getY()) && isDoubleEqual(this.z,coordinate.getZ())){
 			return true;
 		}else{
 			return false;

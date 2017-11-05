@@ -34,7 +34,11 @@ public class Location {
 	
 	public Location() {
 		
-	}	
+	}
+	
+	public Location(Coordinate coordinate){
+		this.coordinate = coordinate;
+	}
 	
 	/**
 	 * @methodtype get

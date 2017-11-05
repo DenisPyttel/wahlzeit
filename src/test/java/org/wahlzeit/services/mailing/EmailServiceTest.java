@@ -31,19 +31,25 @@ public class EmailServiceTest {
 
 	EmailService emailService = null;
 	EmailAddress validAddress = null;
-
+	EmailAddress bcc = null;
+	
 	@Before
 	public void setup() throws Exception {
 		emailService = EmailServiceManager.getDefaultService();
 		validAddress = EmailAddress.getFromString("test@test.de");
+		bcc = EmailAddress.getFromString("bcc@test.de");
 	}
-
+	
 	@Test
 	public void testSendInvalidEmail() {
 		try {
 			assertFalse(emailService.sendEmailIgnoreException(validAddress, null, "lol", "hi"));
 			assertFalse(emailService.sendEmailIgnoreException(null, validAddress, null, "body"));
 			assertFalse(emailService.sendEmailIgnoreException(validAddress, null, "hi", "       "));
+			
+			assertFalse(emailService.sendEmailIgnoreException(validAddress, null, bcc, "lol", "hi"));
+			assertFalse(emailService.sendEmailIgnoreException(null, validAddress, bcc, null, "body"));
+			assertFalse(emailService.sendEmailIgnoreException(validAddress, null, bcc, "hi", "       "));		
 		} catch (Exception ex) {
 			Assert.fail("Silent mode does not allow exceptions");
 		}
@@ -52,9 +58,38 @@ public class EmailServiceTest {
 	@Test
 	public void testSendValidEmail() {
 		try {
-			assertTrue(emailService.sendEmailIgnoreException(validAddress, validAddress, "hi", "test"));
+			assertTrue(emailService.sendEmailIgnoreException(validAddress, validAddress, "lol", "hi"));
+			assertTrue(emailService.sendEmailIgnoreException(validAddress, validAddress, bcc, "lol", "hi"));
 		} catch (Exception ex) {
 			Assert.fail("Silent mode does not allow exceptions");
 		}
+	}
+	
+	@Test(expected = MailingException.class)
+	public void testSendEmailExceptionNoSender() throws Exception {
+		emailService.sendEmail(null, validAddress, "lol", "hi");
+		emailService.sendEmail(null, validAddress, bcc, "lol", "hi");
+	}
+	
+	@Test(expected = MailingException.class)
+	public void testSendEmailExceptionNoReceiver() throws Exception {
+		emailService.sendEmail(validAddress, null, "lol", "hi");
+		emailService.sendEmail(validAddress, null, bcc, "lol", "hi");
+	}
+	
+	@Test(expected = MailingException.class)
+	public void testSendEmailExceptionEmptyOrNullSubject() throws Exception {
+		emailService.sendEmail(validAddress, validAddress, null, "hi");
+		emailService.sendEmail(validAddress, validAddress, bcc, null, "hi");
+		emailService.sendEmail(validAddress, validAddress, "", "hi");
+		emailService.sendEmail(validAddress, validAddress, bcc, "", "hi");
+	}
+	
+	@Test(expected = MailingException.class)
+	public void testSendEmailExceptionEmptyOrNullBody() throws Exception {
+		emailService.sendEmail(validAddress, validAddress, "lol", null);
+		emailService.sendEmail(validAddress, validAddress, bcc, "lol", null);
+		emailService.sendEmail(validAddress, validAddress, "lol", "");
+		emailService.sendEmail(validAddress, validAddress, bcc, "lol", "");
 	}
 }

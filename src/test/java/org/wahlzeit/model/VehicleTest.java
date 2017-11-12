@@ -18,29 +18,34 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+package org.wahlzeit.model;
+
+import org.junit.Test;
+import org.junit.Before;
+import static org.junit.Assert.assertEquals;
 
 /*
- * WahlzeitTestSuite
+ * VehicleTest
  * 
  * Version 1.0
  * 
  * Date 11.11.2017
  */
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-	// package org.wahlzeit.handlers
-	org.wahlzeit.handlers.HandlerTestSuite.class,
-	// package org.wahlzeit.model
-	org.wahlzeit.model.ModelTestSuite.class,
-	// package org.wahlzeit.services
-	org.wahlzeit.services.ServiceTestSuite.class,
-	// package org.wahlzeit.utils
-	org.wahlzeit.utils.UtilsTestSuite.class
-})
+public class VehicleTest {
 
-public class WahlzeitTestSuite {
-
+	private Vehicle bmw_1;
+	private Vehicle mercedes_c;
+	
+	@Before
+	public void setUp(){
+		bmw_1 = new Vehicle("BMW", "1", 150, 200);
+		mercedes_c = new Vehicle("Mercedes", "C-Klasse", 200,250);
+	}
+	
+	@Test
+	public void TestAsString(){
+		assertEquals("BMW: 1 PS: 150 MaxSpeed: 200",bmw_1.asString());
+		assertEquals("Mercedes: C-Klasse PS: 200 MaxSpeed: 250",mercedes_c.asString());
+	}
 }

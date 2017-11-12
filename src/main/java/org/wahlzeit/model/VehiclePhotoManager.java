@@ -18,29 +18,19 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+package org.wahlzeit.model;
 
 /*
- * WahlzeitTestSuite
+ * VehiclePhotoManager
  * 
  * Version 1.0
  * 
  * Date 11.11.2017
  */
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-	// package org.wahlzeit.handlers
-	org.wahlzeit.handlers.HandlerTestSuite.class,
-	// package org.wahlzeit.model
-	org.wahlzeit.model.ModelTestSuite.class,
-	// package org.wahlzeit.services
-	org.wahlzeit.services.ServiceTestSuite.class,
-	// package org.wahlzeit.utils
-	org.wahlzeit.utils.UtilsTestSuite.class
-})
+public class VehiclePhotoManager extends PhotoManager {
 
-public class WahlzeitTestSuite {
-
+	public VehiclePhotoManager(){
+		photoTagCollector = VehiclePhotoFactory.getInstance().createPhotoTagCollector();
+	}	
 }

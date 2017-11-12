@@ -18,29 +18,35 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+package org.wahlzeit.model;
 
 /*
- * WahlzeitTestSuite
+ * VehiclePhoto
  * 
  * Version 1.0
  * 
  * Date 11.11.2017
  */
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-	// package org.wahlzeit.handlers
-	org.wahlzeit.handlers.HandlerTestSuite.class,
-	// package org.wahlzeit.model
-	org.wahlzeit.model.ModelTestSuite.class,
-	// package org.wahlzeit.services
-	org.wahlzeit.services.ServiceTestSuite.class,
-	// package org.wahlzeit.utils
-	org.wahlzeit.utils.UtilsTestSuite.class
-})
+public class VehiclePhoto extends Photo {
+	private Vehicle vehicle;
+	
+	public VehiclePhoto(){
+		super();
+	}
+	
+	public VehiclePhoto(PhotoId myId, Vehicle vehicle){
+		super(myId);
+		this.vehicle = vehicle;
+	}
 
-public class WahlzeitTestSuite {
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
 
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
+	
+	
 }

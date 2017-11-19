@@ -30,7 +30,22 @@ package org.wahlzeit.model;
 
 public class VehiclePhotoManager extends PhotoManager {
 
+	/**
+	 *
+	 */
+	protected static final VehiclePhotoManager instance = new VehiclePhotoManager();
+	
+	/**
+	 *
+	 */
 	public VehiclePhotoManager(){
 		photoTagCollector = VehiclePhotoFactory.getInstance().createPhotoTagCollector();
-	}	
+	}
+	
+	/**
+	 *
+	 */
+	public static final VehiclePhotoManager getInstance(){
+		return instance;
+	}
 }

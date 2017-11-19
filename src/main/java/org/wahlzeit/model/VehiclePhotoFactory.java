@@ -60,13 +60,16 @@ public class VehiclePhotoFactory extends PhotoFactory {
 	}
 	
 	@Override
-	public VehiclePhoto createPhoto(PhotoId id){
-		VehiclePhoto defaultVehiclePhoto = new VehiclePhoto(id, new Vehicle("default", "default", 200, 240));
-		return defaultVehiclePhoto;
+	public VehiclePhoto createPhoto(){
+		return new VehiclePhoto();
 	}
 	
-	public VehiclePhoto createPhoto(PhotoId id, Vehicle vehicle){
-		VehiclePhoto vehiclePhoto = new VehiclePhoto(id, vehicle);
-		return vehiclePhoto;
+	@Override
+	public VehiclePhoto createPhoto(PhotoId id){
+		return new VehiclePhoto(id);
+	}
+	
+	public VehiclePhoto createPhoto(Vehicle vehicle){
+		return new VehiclePhoto(vehicle);
 	}
 }

@@ -20,40 +20,21 @@
 
 package org.wahlzeit.model;
 
-import com.googlecode.objectify.annotation.Subclass;
+import org.junit.Test;
+import static org.junit.Assert.assertNotNull;
 
 /*
- * VehiclePhoto
+ * VehiclePhotoManagerTest
  * 
  * Version 1.0
  * 
  * Date 11.11.2017
  */
 
-@Subclass
-public class VehiclePhoto extends Photo {
-	private Vehicle vehicle;
+public class VehiclePhotoManagerTest {
 	
-	public VehiclePhoto(){
-		super();
+	@Test
+	public void TestGetInstance(){
+		assertNotNull(VehiclePhotoManager.getInstance());
 	}
-	
-	public VehiclePhoto(PhotoId myId){
-		super(myId);
-	}
-	
-	public VehiclePhoto(Vehicle vehicle){
-		super();
-		this.vehicle = vehicle;
-	}
-
-	public Vehicle getVehicle() {
-		return vehicle;
-	}
-
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
-	}
-	
-	
 }

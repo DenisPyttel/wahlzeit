@@ -35,7 +35,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
 	// package org.wahlzeit.model
 	AccessRightsTest.class,
-	CoordinateTest.class,
+	CartesianCoordinateTest.class,
+	SphericCoordinateTest.class,
 	FlagReasonTest.class,
 	GenderTest.class,
 	GuestTest.class,
@@ -44,6 +45,8 @@ import org.junit.runners.Suite;
 	UserStatusTest.class,
 	ValueTest.class,
 	VehicleTest.class,
+	VehiclePhotoTest.class,
+	VehiclePhotoManagerTest.class,
 	VehiclePhotoFactoryTest.class,
 	// package org.wahlzeit.model.persistence
 	//DatastoreAdapter.class,

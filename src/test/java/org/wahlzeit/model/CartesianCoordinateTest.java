@@ -25,35 +25,49 @@ import org.junit.Before;
 import static org.junit.Assert.assertEquals;
 
 /*
- * CoordinateTest
+ * CartesianCoordinateTest
  * 
  * Version 1.0
  * 
  * Date 29.10.2017
  */
 
-public class CoordinateTest {
+public class CartesianCoordinateTest {
 	
-	private Coordinate a;
-	private Coordinate b;
-	private Coordinate c;
-	private Coordinate d;
-	private Coordinate e;
+	private CartesianCoordinate a;
+	private CartesianCoordinate b;
+	private CartesianCoordinate c;
+	private CartesianCoordinate d;
+	private CartesianCoordinate e;
 	
 	@Before
 	public void setUp(){
-		a = new Coordinate(1.0d,1.0d,1.0d);
-		b = new Coordinate(1.0d,1.0d,2.0d);
-		c = new Coordinate(1.0d,1.0d,4.0d);
-		d = new Coordinate(1.0d,1.0d,1.0d);
+		a = new CartesianCoordinate(1.0d,1.0d,1.0d);
+		b = new CartesianCoordinate(1.0d,1.0d,2.0d);
+		c = new CartesianCoordinate(1.0d,1.0d,4.0d);
+		d = new CartesianCoordinate(1.0d,1.0d,1.0d);
 		e = null;
 	}
-		
+	
+	@Test
+	public void testAsSphericCoordinate(){
+		assertEquals(true, a.isEqual(a.asSphericCoordinate().asCartesianCoordinate()));
+		assertEquals(false, a.isEqual(b.asSphericCoordinate().asCartesianCoordinate()));
+		assertEquals(true, b.isEqual(b.asSphericCoordinate().asCartesianCoordinate()));
+	}
+	
+	@Test
+	public void testAsCartesianCoordinate(){
+		assertEquals(true, a.isEqual(a.asCartesianCoordinate()));
+		assertEquals(false, a.isEqual(b.asCartesianCoordinate()));
+	}
+	
 	@Test
 	public void testGetDistance(){
 		assertEquals(0.0d, a.getDistance(a),0.00000001d);			
 		assertEquals(1.0d, a.getDistance(b),0.00000001d);
-		assertEquals(3.0d, a.getDistance(c),0.00000001d);	
+		assertEquals(3.0d, a.getDistance(c),0.00000001d);
+		assertEquals(1.0d, a.getDistance(b.asSphericCoordinate().asCartesianCoordinate()),0.00000001d);
 	}
 	
 	@Test

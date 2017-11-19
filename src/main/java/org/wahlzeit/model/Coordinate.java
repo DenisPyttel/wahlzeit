@@ -25,107 +25,15 @@ package org.wahlzeit.model;
  * 
  * Version 1.0
  * 
- * Date 29.10.2017
+ * Date 17.11.2017
  */
 
-public class Coordinate {
-
-	private double x,y,z;
-	private static final double epsilon = 0.00000001d;
+public interface Coordinate {
 	
-	public Coordinate(double x, double y, double z){
-		this.x = x;
-		this.y = y;
-		this.z = z;
-	}
-	
-	/**
-	 * @methodtype get
-	 */
-	public double getX() {
-		return x;
-	}
-
-	/**
-	 * @methodtype set
-	 */
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	/**
-	 * @methodtype get
-	 */
-	public double getY() {
-		return y;
-	}
-
-	/**
-	 * @methodtype set
-	 */
-	public void setY(int y) {
-		this.y = y;
-	}
-
-	/**
-	 * @methodtype get
-	 */
-	public double getZ() {
-		return z;
-	}
-
-	/**
-	 * @methodtype set
-	 */
-	public void setZ(int z) {
-		this.z = z;
-	}
-
-	/**
-	 * Berechnet die Distanz zwischen zwei Coordinaten (Euclidean distance)
-	 */
-	public double getDistance(Coordinate coordinate){
-		return Math.sqrt(Math.pow(Math.abs(this.x - coordinate.getX()), 2.0)  + 
-				Math.pow(Math.abs(this.y - coordinate.getY()), 2.0) + 
-				Math.pow(Math.abs(this.z - coordinate.getZ()), 2.0)); 
-	}
-	
-	/**
-	 * Vergleicht zwei Double Werte ob diese identisch sind
-	 */
-	public boolean isDoubleEqual(double a, double b)
-	{
-		if(Math.abs(a-b)< epsilon){
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * Vergleicht zwei Coordinaten ob diese identisch sind
-	 */
-	public boolean isEqual(Coordinate coordinate){
-		if(isDoubleEqual(this.x,coordinate.getX()) && isDoubleEqual(this.y,coordinate.getY()) && isDoubleEqual(this.z,coordinate.getZ())){
-			return true;
-		}else{
-			return false;
-		}
-	}
-	
-	/**
-	 *  Override der Methode equals die zwei Coordinaten mit der Methode isEqual vergleicht
-	 */
-	@Override
-	public boolean equals(Object obj){
-		if(obj == null){
-			return false;
-		}
-		if(obj == this){
-			return true;
-		}
-		if(obj instanceof Coordinate){
-			return this.isEqual((Coordinate) obj);
-		}
-		return false;
-	}
+	public CartesianCoordinate asCartesianCoordinate();
+	public double getCartesianDistance(Coordinate coordinate);
+	public SphericCoordinate asSphericCoordinate();
+	public double getSphericDistance(Coordinate coordinate);
+	public double getDistance(Coordinate coordinate);
+	public boolean isEqual(Coordinate coordinate);
 }

@@ -28,12 +28,11 @@ package org.wahlzeit.model;
  * Date 17.11.2017
  */
 
-public class SphericCoordinate implements Coordinate{
+public class SphericCoordinate extends AbstractCoordinate{
 
 	private double latitude;
 	private double longitude;
 	private double radius;
-	private static final double epsilon = 0.00000001d;
 	
 	public SphericCoordinate(double latitude, double longitude, double radius){
 		this.latitude = latitude;
@@ -51,38 +50,14 @@ public class SphericCoordinate implements Coordinate{
 				this.radius * Math.cos(longitude));
 	}
 	
-	public double getSphericDistance(Coordinate coordinate){
-		double temp = this.radius * Math.sqrt(2- 2 * Math.cos(this.latitude - coordinate.asSphericCoordinate().getLatitude()) + 
+	/*public double getSphericDistance(Coordinate coordinate){
+		return this.radius * Math.sqrt(2- 2 * Math.cos(this.latitude - coordinate.asSphericCoordinate().getLatitude()) + 
 				2 * Math.cos(this.latitude) * Math.cos(coordinate.asSphericCoordinate().getLatitude()) *
 				(1 - Math.cos(this.longitude - coordinate.asSphericCoordinate().getLongitude())));
-		return temp;
-	}
+	}*/
 	
 	public double getCartesianDistance(Coordinate coordinate){
 		return this.asCartesianCoordinate().getCartesianDistance(coordinate);
-	}
-	
-	public double getDistance(Coordinate coordinate){
-		if(coordinate instanceof SphericCoordinate){
-			return this.getSphericDistance(coordinate);
-		}
-		else if(coordinate instanceof CartesianCoordinate){
-			return this.getSphericDistance(coordinate.asSphericCoordinate());
-		}
-		else{
-			return 0.0d;
-		}
-	}
-	
-	/**
-	 * Vergleicht zwei Double Werte ob diese identisch sind
-	 */
-	private boolean isDoubleEqual(double a, double b)
-	{
-		if(Math.abs(a-b)< epsilon){
-			return true;
-		}
-		return false;
 	}
 	
 	/**
@@ -95,23 +70,6 @@ public class SphericCoordinate implements Coordinate{
 			}else{
 				return false;
 			}
-		}
-		return false;
-	}
-	
-	/**
-	 *  Override der Methode equals die zwei Coordinaten mit der Methode isEqual vergleicht
-	 */
-	@Override
-	public boolean equals(Object obj){
-		if(obj == null){
-			return false;
-		}
-		if(obj == this){
-			return true;
-		}
-		if(obj instanceof SphericCoordinate){
-			return this.isEqual((SphericCoordinate) obj);
 		}
 		return false;
 	}

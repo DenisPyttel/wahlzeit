@@ -50,6 +50,22 @@ public class SphericCoordinateTest {
 	}
 	
 	@Test
+	public void testIsEqual(){
+		assertEquals(false, a.isEqual(b));
+		assertEquals(false, a.isEqual(c));
+		assertEquals(true, a.isEqual(d));
+		assertEquals(true, a.isEqual(a));		
+	}
+	
+	@Test
+	public void testEquals(){		
+		assertEquals(false, a.equals(b));
+		assertEquals(false, a.equals(c));
+		assertEquals(true, a.equals(d));
+		assertEquals(false, a.equals(e));	
+	}
+	
+	@Test
 	public void testAsCartesianCoordinate(){
 		assertEquals(true, a.isEqual(d.asCartesianCoordinate().asSphericCoordinate()));
 		assertEquals(true, b.isEqual(b.asCartesianCoordinate().asSphericCoordinate()));
@@ -64,25 +80,15 @@ public class SphericCoordinateTest {
 	
 	@Test
 	public void testGetDistance(){
-		assertEquals(0.0d, a.getDistance(a),0.00000001d);			
-		assertEquals(0.8442001211267167d, a.getDistance(b),0.00000001d);
-		assertEquals(1.1477426981095216d, a.getDistance(c),0.00000001d);
-		assertEquals(0.8442001211267167d, a.getDistance(b.asSphericCoordinate().asCartesianCoordinate()),0.00000001d);
+		assertEquals(0.0d, a.getDistance(a), 0.00000001d);
+		assertEquals(2.0605185659442626d, a.getDistance(b), 0.00000001d);
 	}
 	
 	@Test
-	public void testIsEqual(){
-		assertEquals(false, a.isEqual(b));
-		assertEquals(false, a.isEqual(c));
-		assertEquals(true, a.isEqual(d));
-		assertEquals(true, a.isEqual(a));		
-	}
-	
-	@Test
-	public void testEquals(){		
-		assertEquals(false, a.equals(b));
-		assertEquals(false, a.equals(c));
-		assertEquals(true, a.equals(d));
-		assertEquals(false, a.equals(e));	
+	public void testGetSphericDistance(){
+		assertEquals(0.0d, a.getSphericDistance(a),0.00000001d);			
+		assertEquals(0.8442001211267167d, a.getSphericDistance(b),0.00000001d);
+		assertEquals(1.1477426981095216d, a.getSphericDistance(c),0.00000001d);
+		assertEquals(0.8442001211267167d, a.getSphericDistance(b.asSphericCoordinate().asCartesianCoordinate()),0.00000001d);
 	}
 }

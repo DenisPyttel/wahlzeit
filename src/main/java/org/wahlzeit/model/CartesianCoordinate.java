@@ -28,10 +28,9 @@ package org.wahlzeit.model;
  * Date 29.10.2017
  */
 
-public class CartesianCoordinate implements Coordinate{
+public class CartesianCoordinate extends AbstractCoordinate{
 
 	private double x,y,z;
-	private static final double epsilon = 0.00000001d;
 	
 	public CartesianCoordinate(double x, double y, double z){
 		this.x = x;
@@ -58,43 +57,17 @@ public class CartesianCoordinate implements Coordinate{
 	/**
 	 * Berechnet die Distanz zwischen zwei CartesianCoordinaten (Euclidean distance)
 	 */
-	public double getCartesianDistance(Coordinate coordinate){
+	/*public double getCartesianDistance(Coordinate coordinate){
 		return Math.sqrt(Math.pow(Math.abs(this.x -  coordinate.asCartesianCoordinate().getX()), 2.0)  + 
 				Math.pow(Math.abs(this.y - coordinate.asCartesianCoordinate().getY()), 2.0) + 
 				Math.pow(Math.abs(this.z - coordinate.asCartesianCoordinate().getZ()), 2.0));
-	}
+	}*/
 	
 	/**
 	 * 
 	 */
 	public double getSphericDistance(Coordinate coordinate){
 		return this.asSphericCoordinate().getSphericDistance(coordinate);
-	}
-
-	/**
-	 * 
-	 */
-	public double getDistance(Coordinate coordinate){
-		if(coordinate instanceof CartesianCoordinate){
-			return this.getCartesianDistance(coordinate);			
-		}
-		else if(coordinate instanceof SphericCoordinate){
-			return this.getCartesianDistance(coordinate.asCartesianCoordinate());
-		}
-		else{
-			return 0.0d;
-		}
-	}
-	
-	/**
-	 * Vergleicht zwei Double Werte ob diese identisch sind
-	 */
-	private boolean isDoubleEqual(double a, double b)
-	{
-		if(Math.abs(a-b)< epsilon){
-			return true;
-		}
-		return false;
 	}
 	
 	/**
@@ -107,23 +80,6 @@ public class CartesianCoordinate implements Coordinate{
 			}else{
 				return false;
 			}
-		}
-		return false;
-	}
-	
-	/**
-	 *  Override der Methode equals die zwei Coordinaten mit der Methode isEqual vergleicht
-	 */
-	@Override
-	public boolean equals(Object obj){
-		if(obj == null){
-			return false;
-		}
-		if(obj == this){
-			return true;
-		}
-		if(obj instanceof CartesianCoordinate){
-			return this.isEqual((CartesianCoordinate) obj);
 		}
 		return false;
 	}

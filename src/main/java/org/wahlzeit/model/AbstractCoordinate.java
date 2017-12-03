@@ -40,18 +40,26 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * 
 	 */
 	public double getSphericDistance(Coordinate coordinate){
-		return this.asSphericCoordinate().getRadius() * Math.sqrt(2- 2 * Math.cos(this.asSphericCoordinate().getLatitude() - coordinate.asSphericCoordinate().getLatitude()) + 
+		double radicand = 2 - 2 * Math.cos(this.asSphericCoordinate().getLatitude() - coordinate.asSphericCoordinate().getLatitude()) + 
 				2 * Math.cos(this.asSphericCoordinate().getLatitude()) * Math.cos(coordinate.asSphericCoordinate().getLatitude()) *
-				(1 - Math.cos(this.asSphericCoordinate().getLongitude() - coordinate.asSphericCoordinate().getLongitude())));
+				(1 - Math.cos(this.asSphericCoordinate().getLongitude() - coordinate.asSphericCoordinate().getLongitude()));
+						
+		assertIsValidRadicand(radicand);
+		
+		return this.asSphericCoordinate().getRadius() * Math.sqrt(radicand);
 	}
 	
 	/**
-	 * 
+	 * Berechnet die Distanz zwischen zwei CartesianCoordinaten (Euclidean distance)
 	 */
-	public double getCartesianDistance(Coordinate coordinate){
-		return Math.sqrt(Math.pow(Math.abs(this.asCartesianCoordinate().getX() -  coordinate.asCartesianCoordinate().getX()), 2.0)  + 
+	public double getCartesianDistance(Coordinate coordinate){		
+		double radicand = Math.pow(Math.abs(this.asCartesianCoordinate().getX() -  coordinate.asCartesianCoordinate().getX()), 2.0)  + 
 				Math.pow(Math.abs(this.asCartesianCoordinate().getY() - coordinate.asCartesianCoordinate().getY()), 2.0) + 
-				Math.pow(Math.abs(this.asCartesianCoordinate().getZ() - coordinate.asCartesianCoordinate().getZ()), 2.0));
+				Math.pow(Math.abs(this.asCartesianCoordinate().getZ() - coordinate.asCartesianCoordinate().getZ()), 2.0);
+		
+		assertIsValidRadicand(radicand);
+		
+		return Math.sqrt(radicand);
 	}
 
 	/**
@@ -89,4 +97,29 @@ public abstract class AbstractCoordinate implements Coordinate {
 		return false;
 	}
 	
+	protected void assertIsValidDivisor(double divisor){
+		if(divisor == 0.00000d){
+			throw new IllegalArgumentException("divisor should not be 0");
+		}
+	}
+	
+	protected void assertIsValidRadicand(double radicand){
+		if(radicand < 0.00000d){
+			throw new IllegalArgumentException("radicand should not be negative");
+		}
+	}
+	
+	protected void assertIsValidLatitude(double latitude){
+		if(latitude < 0.00000d || latitude >= (2*Math.PI))
+		{
+			throw new IllegalArgumentException("latitude [0,2*PI)");
+		}
+	}
+	
+	protected void assertIsValidLongitude(double longitude){
+		if(longitude < 0.00000d || longitude > Math.PI)
+		{
+			throw new IllegalArgumentException("longitude [0,PI]");
+		}
+	}
 }

@@ -34,7 +34,16 @@ public class SphericCoordinate extends AbstractCoordinate{
 	private double longitude;
 	private double radius;
 	
+	/**
+	 * 
+	 * @param latitude the range of latitude is [0, 2*PI)
+	 * @param longitude the range of longitude is [0, PI]
+	 * @param radius the radius should be a positive double value
+	 */
 	public SphericCoordinate(double latitude, double longitude, double radius){
+		assertIsValidLatitude(latitude);
+		assertIsValidLongitude(longitude);
+		
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.radius = radius;
@@ -44,20 +53,15 @@ public class SphericCoordinate extends AbstractCoordinate{
 		return this;
 	}
 	
+	/**
+	 * Converts the SphericCoordinate into a CartesianCoordinate
+	 */
 	public CartesianCoordinate asCartesianCoordinate(){
-		return new CartesianCoordinate(this.radius * Math.sin(this.longitude) * Math.cos(this.latitude),
-				this.radius * Math.sin(this.longitude) * Math.sin(this.latitude),
-				this.radius * Math.cos(longitude));
-	}
-	
-	/*public double getSphericDistance(Coordinate coordinate){
-		return this.radius * Math.sqrt(2- 2 * Math.cos(this.latitude - coordinate.asSphericCoordinate().getLatitude()) + 
-				2 * Math.cos(this.latitude) * Math.cos(coordinate.asSphericCoordinate().getLatitude()) *
-				(1 - Math.cos(this.longitude - coordinate.asSphericCoordinate().getLongitude())));
-	}*/
-	
-	public double getCartesianDistance(Coordinate coordinate){
-		return this.asCartesianCoordinate().getCartesianDistance(coordinate);
+		double x = this.radius * Math.sin(this.longitude) * Math.cos(this.latitude);
+		double y = this.radius * Math.sin(this.longitude) * Math.sin(this.latitude);
+		double z = this.radius * Math.cos(longitude);
+		
+		return new CartesianCoordinate(x, y, z);
 	}
 	
 	/**
@@ -74,29 +78,45 @@ public class SphericCoordinate extends AbstractCoordinate{
 		return false;
 	}
 
+	/**
+	 * @methodtype get
+	 */
 	public double getLatitude() {
 		return latitude;
 	}
 
+	/**
+	 * @methodtype set
+	 */
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 
+	/**
+	 * @methodtype get
+	 */
 	public double getLongitude() {
 		return longitude;
 	}
 
+	/**
+	 * @methodtype set
+	 */
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 
+	/**
+	 * @methodtype get
+	 */
 	public double getRadius() {
 		return radius;
 	}
 
+	/**
+	 * @methodtype set
+	 */
 	public void setRadius(double radius) {
 		this.radius = radius;
 	}
-	
-	
 }

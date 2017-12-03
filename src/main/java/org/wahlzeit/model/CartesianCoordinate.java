@@ -46,28 +46,20 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	}
 
 	/**
-	 * 
+	 * Converts the CartesianCoordinate into a SphericCoordinate
 	 */
 	public SphericCoordinate asSphericCoordinate(){
-		return new SphericCoordinate(Math.atan2(this.y, this.x),
-				Math.acos(this.z/ (Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z))),
-				Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z));
-	}
-	
-	/**
-	 * Berechnet die Distanz zwischen zwei CartesianCoordinaten (Euclidean distance)
-	 */
-	/*public double getCartesianDistance(Coordinate coordinate){
-		return Math.sqrt(Math.pow(Math.abs(this.x -  coordinate.asCartesianCoordinate().getX()), 2.0)  + 
-				Math.pow(Math.abs(this.y - coordinate.asCartesianCoordinate().getY()), 2.0) + 
-				Math.pow(Math.abs(this.z - coordinate.asCartesianCoordinate().getZ()), 2.0));
-	}*/
-	
-	/**
-	 * 
-	 */
-	public double getSphericDistance(Coordinate coordinate){
-		return this.asSphericCoordinate().getSphericDistance(coordinate);
+		assertIsValidRadicand(this.x * this.x + this.y * this.y + this.z * this.z);
+		assertIsValidDivisor(Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z));
+		
+		double latitude = Math.atan2(this.y, this.x);
+		double longitude = Math.acos(this.z / (Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z)));
+		double radius = Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+		
+		assertIsValidLatitude(latitude);
+		assertIsValidLongitude(longitude);
+			
+		return new SphericCoordinate(latitude, longitude, radius);
 	}
 	
 	/**

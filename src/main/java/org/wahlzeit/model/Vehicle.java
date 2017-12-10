@@ -37,6 +37,10 @@ public class Vehicle {
 	
 	public Vehicle(String vehicleBrand, String vehicleModel, int vehiclePs, int maxSpeed)
 	{
+		//Preconditions
+		assertIsValidIntegerValue(vehiclePs);
+		assertIsValidIntegerValue(maxSpeed);
+		
 		this.vehicleBrand = vehicleBrand;
 		this.vehicleModel = vehicleModel;
 		this.vehiclePS = vehiclePs;
@@ -64,6 +68,8 @@ public class Vehicle {
 	}
 
 	public void setVehiclePS(int vehiclePs) {
+		//Preconditions
+		assertIsValidIntegerValue(vehiclePs);
 		this.vehiclePS = vehiclePs;
 	}
 
@@ -72,6 +78,8 @@ public class Vehicle {
 	}
 
 	public void setMaxSpeed(int maxSpeed) {
+		//Preconditions
+		assertIsValidIntegerValue(maxSpeed);
 		this.maxSpeed = maxSpeed;
 	}
 	
@@ -80,5 +88,11 @@ public class Vehicle {
 				+ ": " + this.vehicleModel 
 				+ " PS: " + this.vehiclePS 
 				+ " MaxSpeed: " + this.maxSpeed; 
+	}
+	
+	public void assertIsValidIntegerValue(int i){
+		if(i > Integer.MAX_VALUE){
+			throw new IllegalArgumentException("integer value should not be greater than " + Integer.MAX_VALUE);
+		}
 	}
 }

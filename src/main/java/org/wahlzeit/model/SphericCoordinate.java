@@ -41,8 +41,10 @@ public class SphericCoordinate extends AbstractCoordinate{
 	 * @param radius the radius should be a positive double value
 	 */
 	public SphericCoordinate(double latitude, double longitude, double radius){
+		//Preconditions
 		assertIsValidLatitude(latitude);
 		assertIsValidLongitude(longitude);
+		assertIsValidRadius(radius);
 		
 		this.latitude = latitude;
 		this.longitude = longitude;
@@ -57,9 +59,17 @@ public class SphericCoordinate extends AbstractCoordinate{
 	 * Converts the SphericCoordinate into a CartesianCoordinate
 	 */
 	public CartesianCoordinate asCartesianCoordinate(){
+		assertClassInvariants();
 		double x = this.radius * Math.sin(this.longitude) * Math.cos(this.latitude);
 		double y = this.radius * Math.sin(this.longitude) * Math.sin(this.latitude);
 		double z = this.radius * Math.cos(longitude);
+		
+		//Postconditions
+		assertIsValidDoubleValue(x);
+		assertIsValidDoubleValue(y);
+		assertIsValidDoubleValue(z);
+		
+		assertClassInvariants();
 		
 		return new CartesianCoordinate(x, y, z);
 	}
@@ -77,6 +87,12 @@ public class SphericCoordinate extends AbstractCoordinate{
 		}
 		return false;
 	}
+	
+	public void assertClassInvariants(){
+		assertIsValidLatitude(latitude);
+		assertIsValidLongitude(longitude);
+		assertIsValidRadius(radius);
+	}
 
 	/**
 	 * @methodtype get
@@ -89,6 +105,8 @@ public class SphericCoordinate extends AbstractCoordinate{
 	 * @methodtype set
 	 */
 	public void setLatitude(double latitude) {
+		//Preconditions
+		assertIsValidLatitude(latitude);		
 		this.latitude = latitude;
 	}
 
@@ -103,6 +121,8 @@ public class SphericCoordinate extends AbstractCoordinate{
 	 * @methodtype set
 	 */
 	public void setLongitude(double longitude) {
+		//Preconditions
+		assertIsValidLongitude(longitude);		
 		this.longitude = longitude;
 	}
 
@@ -117,6 +137,8 @@ public class SphericCoordinate extends AbstractCoordinate{
 	 * @methodtype set
 	 */
 	public void setRadius(double radius) {
+		//Preconditions
+		assertIsValidRadius(radius);		
 		this.radius = radius;
 	}
 }

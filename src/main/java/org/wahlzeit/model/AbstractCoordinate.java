@@ -35,30 +35,55 @@ public abstract class AbstractCoordinate implements Coordinate {
 	public abstract CartesianCoordinate asCartesianCoordinate();
 	public abstract SphericCoordinate asSphericCoordinate();
 	public abstract boolean isEqual(Coordinate coordinate);
+	protected abstract void assertClassInvariants();
+	
+	public double getSphericDistance(Coordinate coordinate){
+		assertClassInvariants();
+		//Preconditions
+		assertCoordinateNotNull(coordinate);
+		
+		double sphericDistance = doGetSphericDistance(coordinate);
+		
+		//Postconditions
+		assertIsValidDoubleValue(sphericDistance);		
+		assertClassInvariants();
+		return sphericDistance;
+	}
 	
 	/**
 	 * 
 	 */
-	public double getSphericDistance(Coordinate coordinate){
+	protected double doGetSphericDistance(Coordinate coordinate){
 		double radicand = 2 - 2 * Math.cos(this.asSphericCoordinate().getLatitude() - coordinate.asSphericCoordinate().getLatitude()) + 
 				2 * Math.cos(this.asSphericCoordinate().getLatitude()) * Math.cos(coordinate.asSphericCoordinate().getLatitude()) *
 				(1 - Math.cos(this.asSphericCoordinate().getLongitude() - coordinate.asSphericCoordinate().getLongitude()));
-						
-		assertIsValidRadicand(radicand);
 		
+		assertIsValidRadicand(radicand);
 		return this.asSphericCoordinate().getRadius() * Math.sqrt(radicand);
+	}
+	
+	public double getCartesianDistance(Coordinate coordinate){
+		assertClassInvariants();
+		//Preconditions
+		assertCoordinateNotNull(coordinate);
+		
+		double cartesianDistance = doGetCartesianDistance(coordinate);
+		
+		//Postconditions
+		assertIsValidDoubleValue(cartesianDistance);
+		assertClassInvariants();
+		return cartesianDistance;
 	}
 	
 	/**
 	 * Berechnet die Distanz zwischen zwei CartesianCoordinaten (Euclidean distance)
 	 */
-	public double getCartesianDistance(Coordinate coordinate){		
+	private double doGetCartesianDistance(Coordinate coordinate){		
 		double radicand = Math.pow(Math.abs(this.asCartesianCoordinate().getX() -  coordinate.asCartesianCoordinate().getX()), 2.0)  + 
 				Math.pow(Math.abs(this.asCartesianCoordinate().getY() - coordinate.asCartesianCoordinate().getY()), 2.0) + 
 				Math.pow(Math.abs(this.asCartesianCoordinate().getZ() - coordinate.asCartesianCoordinate().getZ()), 2.0);
 		
 		assertIsValidRadicand(radicand);
-		
 		return Math.sqrt(radicand);
 	}
 
@@ -66,14 +91,22 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * 
 	 */
 	public double getDistance(Coordinate coordinate){
-		return this.asCartesianCoordinate().getCartesianDistance(coordinate);
+		assertClassInvariants();		
+		//Preconditions
+		assertCoordinateNotNull(coordinate);
+		
+		double distance = this.asCartesianCoordinate().getCartesianDistance(coordinate);
+		
+		//Postconditions
+		assertIsValidDoubleValue(distance);
+		assertClassInvariants();
+		return distance;
 	}
 	
 	/**
 	 * Vergleicht zwei Double Werte ob diese identisch sind
 	 */
-	protected boolean isDoubleEqual(double a, double b)
-	{
+	protected boolean isDoubleEqual(double a, double b){
 		if(Math.abs(a-b)< epsilon){
 			return true;
 		}
@@ -110,8 +143,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	}
 	
 	protected void assertIsValidLatitude(double latitude){
-		if(latitude < 0.00000d || latitude >= (2*Math.PI))
-		{
+		if(latitude < 0.00000d || latitude >= (2*Math.PI)){
 			throw new IllegalArgumentException("latitude [0,2*PI)");
 		}
 	}
@@ -120,6 +152,24 @@ public abstract class AbstractCoordinate implements Coordinate {
 		if(longitude < 0.00000d || longitude > Math.PI)
 		{
 			throw new IllegalArgumentException("longitude [0,PI]");
+		}
+	}
+	
+	protected void assertIsValidRadius(double radius){
+		if(radius < 0){
+			throw new IllegalArgumentException("raidus should be a positive double value");
+		}
+	}
+
+	protected void assertIsValidDoubleValue(double d){
+		if(d > Double.MAX_VALUE){
+			throw new IllegalArgumentException("double value should not be greater than " + Double.MAX_VALUE);
+		}
+	}
+	
+	protected void assertCoordinateNotNull(Coordinate coordinate){
+		if(coordinate == null){
+			throw new IllegalArgumentException("coordinate should not be null");
 		}
 	}
 }

@@ -33,6 +33,11 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	private double x,y,z;
 	
 	public CartesianCoordinate(double x, double y, double z){
+		//Preconditions
+		assertIsValidDoubleValue(x);
+		assertIsValidDoubleValue(y);
+		assertIsValidDoubleValue(z);
+		
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -48,7 +53,9 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	/**
 	 * Converts the CartesianCoordinate into a SphericCoordinate
 	 */
-	public SphericCoordinate asSphericCoordinate(){
+	public SphericCoordinate asSphericCoordinate(){		
+		assertClassInvariants();	
+		//Preconditions
 		assertIsValidRadicand(this.x * this.x + this.y * this.y + this.z * this.z);
 		assertIsValidDivisor(Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z));
 		
@@ -56,9 +63,13 @@ public class CartesianCoordinate extends AbstractCoordinate{
 		double longitude = Math.acos(this.z / (Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z)));
 		double radius = Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
 		
+		//Postconditions
 		assertIsValidLatitude(latitude);
 		assertIsValidLongitude(longitude);
-			
+		assertIsValidRadius(radius);
+		
+		assertClassInvariants();	
+		
 		return new SphericCoordinate(latitude, longitude, radius);
 	}
 	
@@ -76,6 +87,12 @@ public class CartesianCoordinate extends AbstractCoordinate{
 		return false;
 	}
 	
+	public void assertClassInvariants(){
+		assertIsValidDoubleValue(x);
+		assertIsValidDoubleValue(y);
+		assertIsValidDoubleValue(z);
+	}
+	
 	/**
 	 * @methodtype get
 	 */
@@ -87,6 +104,8 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	 * @methodtype set
 	 */
 	public void setX(int x) {
+		//Preconditions
+		assertIsValidDoubleValue(x);
 		this.x = x;
 	}
 
@@ -101,6 +120,8 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	 * @methodtype set
 	 */
 	public void setY(int y) {
+		//Preconditions
+		assertIsValidDoubleValue(y);
 		this.y = y;
 	}
 
@@ -115,6 +136,8 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	 * @methodtype set
 	 */
 	public void setZ(int z) {
+		//Preconditions
+		assertIsValidDoubleValue(z);
 		this.z = z;
 	}
 }

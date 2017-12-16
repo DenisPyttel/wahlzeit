@@ -20,6 +20,8 @@
 
 package org.wahlzeit.model;
 
+import java.util.ArrayList;
+
 /*
  * CartesianCoordinate
  * 
@@ -30,9 +32,10 @@ package org.wahlzeit.model;
 
 public class CartesianCoordinate extends AbstractCoordinate{
 
-	private double x,y,z;
+	private static ArrayList<CartesianCoordinate> allCartesianCoordinate = new ArrayList<CartesianCoordinate>();
+	private final double x,y,z;
 	
-	public CartesianCoordinate(double x, double y, double z){
+	private CartesianCoordinate(double x, double y, double z){
 		//Preconditions
 		assertIsValidDoubleValue(x);
 		assertIsValidDoubleValue(y);
@@ -41,6 +44,27 @@ public class CartesianCoordinate extends AbstractCoordinate{
 		this.x = x;
 		this.y = y;
 		this.z = z;
+	}
+	
+	public static CartesianCoordinate getCartesianCoordinate(double x, double y, double z){
+		CartesianCoordinate temp = allCartesianCoordinate(x,y,z);
+		if(temp == null){
+			temp = new CartesianCoordinate(x,y,z);
+			allCartesianCoordinate.add(temp);
+			return temp;
+		}
+		else{
+			return temp;
+		}
+	}
+	
+	public static CartesianCoordinate allCartesianCoordinate(double x, double y, double z){
+		for(int i = 0; i < allCartesianCoordinate.size(); i++){
+			if(isDoubleEqual(allCartesianCoordinate.get(i).getX(), x) && isDoubleEqual(allCartesianCoordinate.get(i).getY(), y) && isDoubleEqual(allCartesianCoordinate.get(i).getZ(), z)){
+				return allCartesianCoordinate.get(i);
+			}
+		}
+		return null;
 	}
 	
 	/**
@@ -70,7 +94,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
 		
 		assertClassInvariants();	
 		
-		return new SphericCoordinate(latitude, longitude, radius);
+		return SphericCoordinate.getSphericCoordinate(latitude, longitude, radius);
 	}
 	
 	/**
@@ -103,10 +127,10 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	/**
 	 * @methodtype set
 	 */
-	public void setX(int x) {
+	public CartesianCoordinate setX(int x) {
 		//Preconditions
 		assertIsValidDoubleValue(x);
-		this.x = x;
+		return getCartesianCoordinate(x, this.y, this.z);
 	}
 
 	/**
@@ -119,10 +143,10 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	/**
 	 * @methodtype set
 	 */
-	public void setY(int y) {
+	public CartesianCoordinate setY(int y) {
 		//Preconditions
 		assertIsValidDoubleValue(y);
-		this.y = y;
+		return getCartesianCoordinate(this.x, y, this.z);
 	}
 
 	/**
@@ -135,9 +159,9 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	/**
 	 * @methodtype set
 	 */
-	public void setZ(int z) {
+	public CartesianCoordinate setZ(int z) {
 		//Preconditions
 		assertIsValidDoubleValue(z);
-		this.z = z;
+		return getCartesianCoordinate(this.x, this.y, z);
 	}
 }

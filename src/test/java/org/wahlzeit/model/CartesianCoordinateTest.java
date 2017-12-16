@@ -42,10 +42,10 @@ public class CartesianCoordinateTest {
 	
 	@Before
 	public void setUp(){
-		a = new CartesianCoordinate(1.0d,1.0d,1.0d);
-		b = new CartesianCoordinate(1.0d,1.0d,2.0d);
-		c = new CartesianCoordinate(1.0d,1.0d,4.0d);
-		d = new CartesianCoordinate(1.0d,1.0d,1.0d);
+		a = CartesianCoordinate.getCartesianCoordinate(1.0d,1.0d,1.0d);
+		b = CartesianCoordinate.getCartesianCoordinate(1.0d,1.0d,2.0d);
+		c = CartesianCoordinate.getCartesianCoordinate(1.0d,1.0d,4.0d);
+		d = CartesianCoordinate.getCartesianCoordinate(1.0d,1.0d,1.0d);
 		e = null;
 	}
 	

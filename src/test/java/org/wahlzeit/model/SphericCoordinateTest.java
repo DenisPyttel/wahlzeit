@@ -42,10 +42,10 @@ public class SphericCoordinateTest {
 	
 	@Before
 	public void setUp(){
-		a = new SphericCoordinate(1.0d,1.0d,1.0d);
-		b = new SphericCoordinate(2.0d,2.0d,2.0d);
-		c = new SphericCoordinate(3.0d,3.0d,3.0d);
-		d = new SphericCoordinate(1.0d,1.0d,1.0d);
+		a = SphericCoordinate.getSphericCoordinate(1.0d,1.0d,1.0d);
+		b = SphericCoordinate.getSphericCoordinate(2.0d,2.0d,2.0d);
+		c = SphericCoordinate.getSphericCoordinate(3.0d,3.0d,3.0d);
+		d = SphericCoordinate.getSphericCoordinate(1.0d,1.0d,1.0d);
 		e = null;
 	}
 	

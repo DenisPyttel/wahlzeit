@@ -20,6 +20,8 @@
 
 package org.wahlzeit.model;
 
+import java.util.ArrayList;
+
 /*
  * SphericCoordinate
  * 
@@ -30,9 +32,10 @@ package org.wahlzeit.model;
 
 public class SphericCoordinate extends AbstractCoordinate{
 
-	private double latitude;
-	private double longitude;
-	private double radius;
+	private static ArrayList<SphericCoordinate> allSphericCoordinate = new ArrayList<SphericCoordinate>();
+	final private double latitude;
+	final private double longitude;
+	final private double radius;
 	
 	/**
 	 * 
@@ -40,7 +43,7 @@ public class SphericCoordinate extends AbstractCoordinate{
 	 * @param longitude the range of longitude is [0, PI]
 	 * @param radius the radius should be a positive double value
 	 */
-	public SphericCoordinate(double latitude, double longitude, double radius){
+	private SphericCoordinate(double latitude, double longitude, double radius){
 		//Preconditions
 		assertIsValidLatitude(latitude);
 		assertIsValidLongitude(longitude);
@@ -49,6 +52,27 @@ public class SphericCoordinate extends AbstractCoordinate{
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.radius = radius;
+	}
+	
+	public static SphericCoordinate getSphericCoordinate(double latitude, double longitude, double radius){
+		SphericCoordinate temp = allSphericCoordinates(latitude, longitude, radius);
+		if(temp == null){
+			temp = new SphericCoordinate(latitude, longitude, radius);
+			allSphericCoordinate.add(temp);
+			return temp;
+		}
+		else{
+			return temp;
+		}
+	}
+	
+	public static SphericCoordinate allSphericCoordinates(double latitude, double longitude, double radius){
+		for(int i = 0; i < allSphericCoordinate.size(); i++){
+			if(isDoubleEqual(allSphericCoordinate.get(i).getLatitude(), latitude)&& isDoubleEqual(allSphericCoordinate.get(i).getLongitude(), longitude) && isDoubleEqual(allSphericCoordinate.get(i).getRadius(), radius)){
+				return allSphericCoordinate.get(i);
+			}
+		}
+		return null;
 	}
 	
 	public SphericCoordinate asSphericCoordinate(){
@@ -71,7 +95,7 @@ public class SphericCoordinate extends AbstractCoordinate{
 		
 		assertClassInvariants();
 		
-		return new CartesianCoordinate(x, y, z);
+		return CartesianCoordinate.getCartesianCoordinate(x, y, z);
 	}
 	
 	/**
@@ -104,10 +128,10 @@ public class SphericCoordinate extends AbstractCoordinate{
 	/**
 	 * @methodtype set
 	 */
-	public void setLatitude(double latitude) {
+	public SphericCoordinate setLatitude(double latitude) {
 		//Preconditions
-		assertIsValidLatitude(latitude);		
-		this.latitude = latitude;
+		assertIsValidLatitude(latitude);
+		return getSphericCoordinate(latitude, this.longitude, this.radius);
 	}
 
 	/**
@@ -120,10 +144,10 @@ public class SphericCoordinate extends AbstractCoordinate{
 	/**
 	 * @methodtype set
 	 */
-	public void setLongitude(double longitude) {
+	public SphericCoordinate setLongitude(double longitude) {
 		//Preconditions
-		assertIsValidLongitude(longitude);		
-		this.longitude = longitude;
+		assertIsValidLongitude(longitude);
+		return getSphericCoordinate(this.latitude, longitude, this.radius);
 	}
 
 	/**
@@ -136,9 +160,9 @@ public class SphericCoordinate extends AbstractCoordinate{
 	/**
 	 * @methodtype set
 	 */
-	public void setRadius(double radius) {
+	public SphericCoordinate setRadius(double radius) {
 		//Preconditions
-		assertIsValidRadius(radius);		
-		this.radius = radius;
+		assertIsValidRadius(radius);	
+		return getSphericCoordinate(this.latitude, this.longitude, radius);
 	}
 }

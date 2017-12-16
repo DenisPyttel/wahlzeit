@@ -30,7 +30,7 @@ package org.wahlzeit.model;
 
 public abstract class AbstractCoordinate implements Coordinate {
 
-	private static final double epsilon = 0.00000001d;
+	protected static final double epsilon = 0.00000001d;
 	
 	public abstract CartesianCoordinate asCartesianCoordinate();
 	public abstract SphericCoordinate asSphericCoordinate();
@@ -106,7 +106,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	/**
 	 * Vergleicht zwei Double Werte ob diese identisch sind
 	 */
-	protected boolean isDoubleEqual(double a, double b){
+	protected static boolean isDoubleEqual(double a, double b){
 		if(Math.abs(a-b)< epsilon){
 			return true;
 		}

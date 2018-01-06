@@ -31,6 +31,10 @@ import com.googlecode.objectify.annotation.Subclass;
  */
 
 @Subclass
+@PatternInstance(
+		patternName = "Abstract Factory",
+		participants = {"AbstractProduct", "ConcreteProduct"}
+		)
 public class VehiclePhoto extends Photo {
 	private Vehicle vehicle;
 	

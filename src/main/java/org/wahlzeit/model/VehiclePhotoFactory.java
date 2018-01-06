@@ -30,6 +30,10 @@ import org.wahlzeit.services.LogBuilder;
  * Date 11.11.2017
  */
 
+@PatternInstance(
+		patternName = "Abstract Factory",
+		participants = {"AbstractFactory", "ConcreteFactory"}
+		)
 public class VehiclePhotoFactory extends PhotoFactory {
 
 	private static VehiclePhotoFactory instance = null;

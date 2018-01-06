@@ -20,7 +20,7 @@
 
 package org.wahlzeit.model;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /*
  * CartesianCoordinate
@@ -30,9 +30,13 @@ import java.util.ArrayList;
  * Date 29.10.2017
  */
 
+@PatternInstance(
+		patternName = "Value Object",
+		participants = {"Value Object"}
+		)
 public class CartesianCoordinate extends AbstractCoordinate{
 
-	private static ArrayList<CartesianCoordinate> allCartesianCoordinate = new ArrayList<CartesianCoordinate>();
+	private static HashMap<Integer, CartesianCoordinate> allCartesianCoordinate = new HashMap<Integer, CartesianCoordinate>();
 	private final double x,y,z;
 	
 	private CartesianCoordinate(double x, double y, double z){
@@ -47,24 +51,11 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	}
 	
 	public static CartesianCoordinate getCartesianCoordinate(double x, double y, double z){
-		CartesianCoordinate temp = allCartesianCoordinate(x,y,z);
-		if(temp == null){
-			temp = new CartesianCoordinate(x,y,z);
-			allCartesianCoordinate.add(temp);
-			return temp;
+		int temp = generateHashCode(x,y,z);
+		if(!allCartesianCoordinate.containsKey(temp)){
+			allCartesianCoordinate.put(temp, new CartesianCoordinate(x,y,z));
 		}
-		else{
-			return temp;
-		}
-	}
-	
-	public static CartesianCoordinate allCartesianCoordinate(double x, double y, double z){
-		for(int i = 0; i < allCartesianCoordinate.size(); i++){
-			if(isDoubleEqual(allCartesianCoordinate.get(i).getX(), x) && isDoubleEqual(allCartesianCoordinate.get(i).getY(), y) && isDoubleEqual(allCartesianCoordinate.get(i).getZ(), z)){
-				return allCartesianCoordinate.get(i);
-			}
-		}
-		return null;
+		return allCartesianCoordinate.get(temp);
 	}
 	
 	/**
@@ -109,6 +100,19 @@ public class CartesianCoordinate extends AbstractCoordinate{
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	public int hashCode(){
+		return generateHashCode(this.x, this.y, this.z);
+	}
+	
+	private static int generateHashCode(double x, double y, double z){
+		int hash = 17;
+		hash = 71 * hash + (int) (Double.doubleToLongBits(x) ^ (Double.doubleToLongBits(x) >>> 32));
+		hash = 71 * hash + (int) (Double.doubleToLongBits(y) ^ (Double.doubleToLongBits(y) >>> 32));
+		hash = 71 * hash + (int) (Double.doubleToLongBits(z) ^ (Double.doubleToLongBits(z) >>> 32));
+		return hash;
 	}
 	
 	public void assertClassInvariants(){

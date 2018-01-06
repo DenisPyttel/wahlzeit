@@ -20,7 +20,7 @@
 
 package org.wahlzeit.model;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /*
  * SphericCoordinate
@@ -30,9 +30,13 @@ import java.util.ArrayList;
  * Date 17.11.2017
  */
 
+@PatternInstance(
+		patternName = "Value Object",
+		participants = {"Value Object"}
+		)
 public class SphericCoordinate extends AbstractCoordinate{
 
-	private static ArrayList<SphericCoordinate> allSphericCoordinate = new ArrayList<SphericCoordinate>();
+	private static HashMap<Integer, SphericCoordinate> allSphericCoordinate = new HashMap<Integer, SphericCoordinate>();
 	final private double latitude;
 	final private double longitude;
 	final private double radius;
@@ -55,24 +59,11 @@ public class SphericCoordinate extends AbstractCoordinate{
 	}
 	
 	public static SphericCoordinate getSphericCoordinate(double latitude, double longitude, double radius){
-		SphericCoordinate temp = allSphericCoordinates(latitude, longitude, radius);
-		if(temp == null){
-			temp = new SphericCoordinate(latitude, longitude, radius);
-			allSphericCoordinate.add(temp);
-			return temp;
+		int temp = generateHashCode(latitude, longitude, radius);
+		if(!allSphericCoordinate.containsKey(temp)){
+			allSphericCoordinate.put(temp, new SphericCoordinate(latitude, longitude, radius));
 		}
-		else{
-			return temp;
-		}
-	}
-	
-	public static SphericCoordinate allSphericCoordinates(double latitude, double longitude, double radius){
-		for(int i = 0; i < allSphericCoordinate.size(); i++){
-			if(isDoubleEqual(allSphericCoordinate.get(i).getLatitude(), latitude)&& isDoubleEqual(allSphericCoordinate.get(i).getLongitude(), longitude) && isDoubleEqual(allSphericCoordinate.get(i).getRadius(), radius)){
-				return allSphericCoordinate.get(i);
-			}
-		}
-		return null;
+		return allSphericCoordinate.get(temp);
 	}
 	
 	public SphericCoordinate asSphericCoordinate(){
@@ -110,6 +101,19 @@ public class SphericCoordinate extends AbstractCoordinate{
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	public int hashCode(){
+		return generateHashCode(this.latitude, this.longitude, this.radius);
+	}
+	
+	private static int generateHashCode(double latitude, double longitude, double radius){
+		int hash = 17;
+		hash = 71 * hash + (int) (Double.doubleToLongBits(latitude) ^ (Double.doubleToLongBits(latitude) >>> 32));
+		hash = 71 * hash + (int) (Double.doubleToLongBits(longitude) ^ (Double.doubleToLongBits(longitude) >>> 32));
+		hash = 71 * hash + (int) (Double.doubleToLongBits(radius) ^ (Double.doubleToLongBits(radius) >>> 32));
+		return hash;
 	}
 	
 	public void assertClassInvariants(){

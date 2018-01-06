@@ -38,6 +38,10 @@ import java.util.logging.Logger;
 /**
  * A single-threaded Main class with database connection. Can be used by tools that don't want to start a server.
  */
+@PatternInstance(
+		patternName = "Facade",
+		participants = {"Facade"}
+		)
 public abstract class ModelMain extends AbstractMain {
 
 	private static final Logger log = Logger.getLogger(ModelMain.class.getName());

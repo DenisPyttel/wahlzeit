@@ -39,6 +39,10 @@ import java.util.logging.Logger;
  * 
  * @review
  */
+@PatternInstance(
+		patternName = "Adapter",
+		participants = {"Adapter"}
+		)
 public class DatastoreAdapter extends ImageStorage {
 
 	private static final Logger log = Logger.getLogger(DatastoreAdapter.class.getName());

@@ -44,6 +44,7 @@ import org.junit.runners.Suite;
 	TagsTest.class,
 	UserStatusTest.class,
 	ValueTest.class,
+	VehicleManagerTest.class,
 	VehicleTest.class,
 	VehiclePhotoTest.class,
 	VehiclePhotoManagerTest.class,

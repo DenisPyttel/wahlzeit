@@ -34,18 +34,18 @@ import static org.junit.Assert.assertEquals;
 
 public class VehicleTest {
 
-	private Vehicle bmw_1;
-	private Vehicle mercedes_c;
+	private Vehicle bmw;
+	private Vehicle mercedes;
 	
 	@Before
 	public void setUp(){
-		bmw_1 = new Vehicle("BMW", "1", 150, 200);
-		mercedes_c = new Vehicle("Mercedes", "C-Klasse", 200,250);
+		bmw = new Vehicle("AAA AAA", VehicleManager.getInstance().createVehicleType("BMW"));
+		mercedes = new Vehicle("BBB BBB", VehicleManager.getInstance().createVehicleType("Mercedes"));
 	}
 	
 	@Test
 	public void TestAsString(){
-		assertEquals("BMW: 1 PS: 150 MaxSpeed: 200",bmw_1.asString());
-		assertEquals("Mercedes: C-Klasse PS: 200 MaxSpeed: 250",mercedes_c.asString());
+		assertEquals("VehicleBrand: BMW Kennzeichen: AAA AAA", bmw.asString());
+		assertEquals("VehicleBrand: Mercedes Kennzeichen: BBB BBB", mercedes.asString());
 	}
 }

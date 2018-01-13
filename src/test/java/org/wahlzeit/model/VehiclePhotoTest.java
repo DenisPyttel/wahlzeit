@@ -34,28 +34,26 @@ import static org.junit.Assert.assertEquals;
 
 public class VehiclePhotoTest {
 	
-	private Vehicle defaultVehicle;
-	private VehiclePhoto defaultVehiclePhoto;
+	private Vehicle vehicle;
+	private VehiclePhoto vehiclePhoto;
 	
 	@Before
 	public void setUp(){
-		defaultVehicle = new Vehicle("bmw","1",200,250);
-		defaultVehiclePhoto = new VehiclePhoto(defaultVehicle);
+		vehicle = new Vehicle("AAA AAA", VehicleManager.getInstance().createVehicleType("BMW"));
+		vehiclePhoto = new VehiclePhoto(vehicle);
 	}
 	
 	@Test
 	public void TestGetVehicle(){
-		assertEquals("bmw", defaultVehiclePhoto.getVehicle().getVehicleBrand());		
-		assertEquals("1", defaultVehiclePhoto.getVehicle().getVehicleModel());
-		assertEquals(200, defaultVehiclePhoto.getVehicle().getVehiclePS());
-		assertEquals(250, defaultVehiclePhoto.getVehicle().getMaxSpeed());
+		String temp = vehiclePhoto.getVehicle().getVehicleNumber();
+		System.out.println(temp);
+		assertEquals("AAA AAA", vehiclePhoto.getVehicle().getVehicleNumber());
+		assertEquals("BMW", vehiclePhoto.getVehicle().getVehicleType().getModel());		
 	}
 	
 	@Test
 	public void TestSetVehicle(){
-		defaultVehiclePhoto.getVehicle().setVehicleBrand("mercedes");
-		defaultVehiclePhoto.getVehicle().setVehicleModel("C-Klasse");
-		assertEquals("mercedes", defaultVehiclePhoto.getVehicle().getVehicleBrand());		
-		assertEquals("C-Klasse", defaultVehiclePhoto.getVehicle().getVehicleModel());
+		vehiclePhoto.getVehicle().setVehicleNumber("BBB BBB");
+		assertEquals("BBB BBB", vehiclePhoto.getVehicle().getVehicleNumber());
 	}
 }

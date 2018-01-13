@@ -20,29 +20,16 @@
 
 package org.wahlzeit.model;
 
-import org.junit.Test;
-import static org.junit.Assert.assertNotNull;
-
 /*
- * VehiclePhotoFactoryTest
+ * PatternInstance
  * 
  * Version 1.0
  * 
- * Date 11.11.2017
+ * Date 12.01.2018
  */
 
-public class VehiclePhotoFactoryTest {
-	
-	@Test
-	public void TestGetInstance(){
-		assertNotNull(VehiclePhotoFactory.getInstance());
-	}
-	
-	@Test
-	public void TestCreatePhoto(){
-		VehiclePhotoFactory instance = VehiclePhotoFactory.getInstance();
-		Vehicle vehicle = new Vehicle("AAA AAA", VehicleManager.getInstance().createVehicleType("BMW"));
-		VehiclePhoto vehiclePhoto = instance.createPhoto(vehicle);
-		assertNotNull(vehiclePhoto);
-	}
+public @interface PatternInstance {
+
+	String patternName();
+	String[] participants();
 }

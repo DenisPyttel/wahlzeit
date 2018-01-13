@@ -30,64 +30,37 @@ package org.wahlzeit.model;
 
 public class Vehicle {
 
-	protected String vehicleBrand;
-	protected String vehicleModel;
-	protected int vehiclePS;
-	protected int maxSpeed;
+	protected String vehicleNumber;
+	protected VehicleType vehicleType;
 	
-	public Vehicle(String vehicleBrand, String vehicleModel, int vehiclePs, int maxSpeed)
+	public Vehicle(String vehicleNumber, VehicleType vehicleType)
 	{
 		//Preconditions
-		assertIsValidIntegerValue(vehiclePs);
-		assertIsValidIntegerValue(maxSpeed);
+		//assertIsValidIntegerValue(vehiclePs);
+		//assertIsValidIntegerValue(maxSpeed);
 		
-		this.vehicleBrand = vehicleBrand;
-		this.vehicleModel = vehicleModel;
-		this.vehiclePS = vehiclePs;
-		this.maxSpeed = maxSpeed;
+		this.vehicleNumber = vehicleNumber;
+		this.vehicleType = vehicleType;
 	}
-
-	public String getVehicleBrand() {
-		return vehicleBrand;
+	
+	public VehicleType getVehicleType(){
+		return vehicleType;
 	}
-
-	public void setVehicleBrand(String vehicleBrand) {
-		this.vehicleBrand = vehicleBrand;
+	
+	public void setVehicleType(VehicleType vehicleType){
+		this.vehicleType = vehicleType;
 	}
-
-	public String getVehicleModel() {
-		return vehicleModel;
+	
+	public String getVehicleNumber(){
+		return vehicleNumber;
 	}
-
-	public void setVehicleModel(String vehicleModel) {
-		this.vehicleModel = vehicleModel;
-	}
-
-	public int getVehiclePS() {
-		return vehiclePS;
-	}
-
-	public void setVehiclePS(int vehiclePs) {
-		//Preconditions
-		assertIsValidIntegerValue(vehiclePs);
-		this.vehiclePS = vehiclePs;
-	}
-
-	public int getMaxSpeed() {
-		return maxSpeed;
-	}
-
-	public void setMaxSpeed(int maxSpeed) {
-		//Preconditions
-		assertIsValidIntegerValue(maxSpeed);
-		this.maxSpeed = maxSpeed;
+	
+	public void setVehicleNumber(String vehicleNumber){
+		this.vehicleNumber = vehicleNumber;
 	}
 	
 	public String asString(){
-		return this.vehicleBrand 
-				+ ": " + this.vehicleModel 
-				+ " PS: " + this.vehiclePS 
-				+ " MaxSpeed: " + this.maxSpeed; 
+		return vehicleType.asString() + " Kennzeichen: " + this.vehicleNumber; 
 	}
 	
 	public void assertIsValidIntegerValue(int i){

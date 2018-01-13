@@ -20,6 +20,7 @@
 
 package org.wahlzeit.model.persistence;
 
+import org.wahlzeit.model.PatternInstance;
 import com.google.appengine.api.images.Image;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.googlecode.objectify.ObjectifyService;

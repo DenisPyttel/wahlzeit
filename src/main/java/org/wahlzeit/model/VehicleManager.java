@@ -20,6 +20,9 @@
 
 package org.wahlzeit.model;
 
+import java.util.HashMap;
+import org.wahlzeit.services.ObjectManager;
+
 /*
  * VehicleManager
  * 
@@ -28,13 +31,12 @@ package org.wahlzeit.model;
  * Date 12.01.2018
  */
 
-public class VehicleManager {
+public class VehicleManager /*extends ObjectManager*/ {
 
-	protected VehicleType vehicleType;
+	protected HashMap<String, VehicleType> allVehicleTypes = new HashMap<String, VehicleType>();
 	protected static VehicleManager instance = new VehicleManager();
 	
 	private VehicleManager(){
-		vehicleType = new VehicleType();
 	}
 	
 	public static synchronized VehicleManager getInstance(){
@@ -45,18 +47,28 @@ public class VehicleManager {
 	}
 	
 	public VehicleType createVehicleType(String model){
-		return vehicleType.createVehicleType(model);
+		VehicleType temp = new VehicleType(model);
+		if(!allVehicleTypes.containsKey(model)){
+			allVehicleTypes.put(model, temp);
+		}
+		return allVehicleTypes.get(model);
 	}
 	
 	public VehicleType createVehicleType(String model, int vehiclePS, int maxSpeed){
-		return vehicleType.createVehicleType(model, vehiclePS, maxSpeed);
+		VehicleType temp = new VehicleType(model, vehiclePS, maxSpeed);
+		if(!allVehicleTypes.containsKey(model)){
+			allVehicleTypes.put(model, temp);
+		}
+		return allVehicleTypes.get(model);
 	}
 	
 	public Vehicle createVehicle(String vehicleNumber, String model){
-		return new Vehicle(vehicleNumber, vehicleType.createVehicleType(model));
+		VehicleType temp = createVehicleType(model);
+		return new Vehicle(vehicleNumber, temp);
 	}
 	
 	public Vehicle createVehicle(String vehicleNumber, String model, int vehiclePS, int maxSpeed){
-		return new Vehicle(vehicleNumber, vehicleType.createVehicleType(model, vehiclePS, maxSpeed));
+		VehicleType temp = createVehicleType(model, vehiclePS, maxSpeed);
+		return new Vehicle(vehicleNumber, temp);
 	}
 }

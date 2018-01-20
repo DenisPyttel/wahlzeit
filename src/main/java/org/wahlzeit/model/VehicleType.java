@@ -34,15 +34,10 @@ import java.util.Set;
 
 public class VehicleType{
 	
-	protected static HashMap<String, VehicleType> allVehicleTypes = new HashMap<String, VehicleType>();
 	protected Set<VehicleType> subTypes = new HashSet<VehicleType>();
 	protected String model;
 	protected int vehiclePS = 0;
 	protected int maxSpeed = 0;
-	
-	public VehicleType(){
-		
-	}
 	
 	public VehicleType(String model){
 		this.model = model;
@@ -54,18 +49,18 @@ public class VehicleType{
 		this.maxSpeed = maxSpeed;
 	}
 	
-	public static VehicleType createVehicleType(String model){
-		if(!allVehicleTypes.containsKey(model)){
-			allVehicleTypes.put(model, new VehicleType(model));
+	public boolean hasInstance(Vehicle vehicle){
+		assert (vehicle != null);
+		if(vehicle.getVehicleType() == this){
+			return true;
 		}
-		return allVehicleTypes.get(model);
-	}
-	
-	public static VehicleType createVehicleType(String model, int vehiclePS, int maxSpeed){
-		if(!allVehicleTypes.containsKey(model)){
-			allVehicleTypes.put(model, new VehicleType(model, vehiclePS, maxSpeed));
+		
+		for(VehicleType type : subTypes){
+			if(type.hasInstance(vehicle)){
+				return true;
+			}
 		}
-		return allVehicleTypes.get(model);
+		return false;
 	}
 	
 	public void addSubtype(VehicleType subType){
@@ -86,10 +81,6 @@ public class VehicleType{
 
 	public String getModel() {
 		return model;
-	}
-
-	public void setModel(String model) {
-		this.model = model;
 	}
 	
 	public int getVehiclePS() {

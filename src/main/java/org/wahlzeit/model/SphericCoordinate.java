@@ -58,6 +58,14 @@ public class SphericCoordinate extends AbstractCoordinate{
 		this.radius = radius;
 	}
 	
+	/**
+	 * Creates only a new SphericCoordinate if the SphericCoordinate with the given parameter not exists
+	 * 
+	 * @param latitude the range of latitude is [0, 2*PI)
+	 * @param longitude the range of longitude is [0, PI]
+	 * @param radius the radius should be a positive double value
+	 * @return
+	 */
 	public static SphericCoordinate getSphericCoordinate(double latitude, double longitude, double radius){
 		int temp = generateHashCode(latitude, longitude, radius);
 		if(!allSphericCoordinate.containsKey(temp)){
@@ -71,7 +79,7 @@ public class SphericCoordinate extends AbstractCoordinate{
 	}
 	
 	/**
-	 * Converts the SphericCoordinate into a CartesianCoordinate
+	 * Converts a SphericCoordinate into a CartesianCoordinate
 	 */
 	public CartesianCoordinate asCartesianCoordinate(){
 		assertClassInvariants();
@@ -90,7 +98,7 @@ public class SphericCoordinate extends AbstractCoordinate{
 	}
 	
 	/**
-	 * Vergleicht zwei Coordinaten ob diese identisch sind
+	 * Compares two SphericCoordinates if they are equal
 	 */
 	public boolean isEqual(Coordinate coordinate){
 		if(coordinate instanceof SphericCoordinate){

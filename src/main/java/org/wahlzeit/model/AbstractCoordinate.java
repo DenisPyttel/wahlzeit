@@ -51,7 +51,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	}
 	
 	/**
-	 * 
+	 * Calculate the distance of two SphericCoordinates
 	 */
 	protected double doGetSphericDistance(Coordinate coordinate){
 		double radicand = 2 - 2 * Math.cos(this.asSphericCoordinate().getLatitude() - coordinate.asSphericCoordinate().getLatitude()) + 
@@ -76,7 +76,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	}
 	
 	/**
-	 * Berechnet die Distanz zwischen zwei CartesianCoordinaten (Euclidean distance)
+	 * Calculate the distance of two CartesianCoordinates (Euclidean distance)
 	 */
 	private double doGetCartesianDistance(Coordinate coordinate){		
 		double radicand = Math.pow(Math.abs(this.asCartesianCoordinate().getX() -  coordinate.asCartesianCoordinate().getX()), 2.0)  + 
@@ -104,7 +104,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	}
 	
 	/**
-	 * Vergleicht zwei Double Werte ob diese identisch sind
+	 * Compares two double parameter if they are equal
 	 */
 	protected static boolean isDoubleEqual(double a, double b){
 		if(Math.abs(a-b)< epsilon){
@@ -113,9 +113,6 @@ public abstract class AbstractCoordinate implements Coordinate {
 		return false;
 	}
 	
-	/**
-	 *  Override der Methode equals die zwei Coordinaten mit der Methode isEqual vergleicht
-	 */
 	@Override
 	public boolean equals(Object obj){
 		if(obj == null){

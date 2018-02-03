@@ -43,18 +43,30 @@ public class Vehicle {
 		this.vehicleType = vehicleType;
 	}
 	
+	/**
+	 * @methodtype get
+	 */
 	public VehicleType getVehicleType(){
 		return vehicleType;
 	}
 	
+	/**
+	 * @methodtype set
+	 */
 	public void setVehicleType(VehicleType vehicleType){
 		this.vehicleType = vehicleType;
 	}
 	
+	/**
+	 * @methodtype get
+	 */
 	public String getVehicleNumber(){
 		return vehicleNumber;
 	}
 	
+	/**
+	 * @methodtype set
+	 */
 	public void setVehicleNumber(String vehicleNumber){
 		this.vehicleNumber = vehicleNumber;
 	}

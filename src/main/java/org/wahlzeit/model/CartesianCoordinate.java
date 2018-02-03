@@ -50,6 +50,9 @@ public class CartesianCoordinate extends AbstractCoordinate{
 		this.z = z;
 	}
 	
+	/**
+	 * Creates only a new CartesianCoordinate if the CartesianCoordinate with the given parameter not exists
+	 */
 	public static CartesianCoordinate getCartesianCoordinate(double x, double y, double z){
 		int temp = generateHashCode(x,y,z);
 		if(!allCartesianCoordinate.containsKey(temp)){
@@ -66,7 +69,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	}
 
 	/**
-	 * Converts the CartesianCoordinate into a SphericCoordinate
+	 * Converts a CartesianCoordinate into a SphericCoordinate
 	 */
 	public SphericCoordinate asSphericCoordinate(){		
 		assertClassInvariants();	
@@ -89,7 +92,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	}
 	
 	/**
-	 * Vergleicht zwei Coordinaten ob diese identisch sind
+	 * Compares two CartesianCoordinates if they are equal
 	 */
 	public boolean isEqual(Coordinate coordinate){
 		if(coordinate instanceof CartesianCoordinate){

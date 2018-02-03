@@ -79,22 +79,37 @@ public class VehicleType{
 		return false;
 	}
 
+	/**
+	 * @methodtype get
+	 */
 	public String getModel() {
 		return model;
 	}
-	
+
+	/**
+	 * @methodtype get
+	 */
 	public int getVehiclePS() {
 		return vehiclePS;
 	}
 
+	/**
+	 * @methodtype set
+	 */
 	public void setVehiclePS(int vehiclePS) {
 		this.vehiclePS = vehiclePS;
 	}
 
+	/**
+	 * @methodtype get
+	 */
 	public int getMaxSpeed() {
 		return maxSpeed;
 	}
 
+	/**
+	 * @methodtype set
+	 */
 	public void setMaxSpeed(int maxSpeed) {
 		this.maxSpeed = maxSpeed;
 	}
